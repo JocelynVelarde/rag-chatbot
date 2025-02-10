@@ -1,4 +1,3 @@
 openai
 langchain
-hashlib
 pinecone
