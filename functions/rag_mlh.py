@@ -13,10 +13,6 @@ def read_doc(directory: str) -> list[str]:
 
     return page_contents
 
-
-# Call the function
-full_document = read_doc("pdf")
-
 def chunk_text_for_list(docs: list[str], max_chunk_size: int = 1000) -> list[list[str]]:
     def chunk_text(text: str, max_chunk_size: int) -> list[str]:
         # Ensure each text ends with a double newline to correctly split paragraphs
@@ -47,10 +43,6 @@ def chunk_text_for_list(docs: list[str], max_chunk_size: int = 1000) -> list[lis
     return [chunk_text(doc, max_chunk_size) for doc in docs]
 
 
-# Call the function
-chunked_document = chunk_text_for_list(docs=full_document)
-#print(chunked_document)
-
 from langchain.embeddings.openai import OpenAIEmbeddings
 # You can use my API key
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
@@ -60,11 +52,6 @@ def generate_embeddings(documents: list[any]) -> list[list[float]]:
     embedded = [EMBEDDINGS.embed_documents(doc) for doc in documents]
     return embedded
 
-# Run the function
-chunked_document_embeddings = generate_embeddings(documents=chunked_document)
-
-# Let's see the dimension of our embedding model so we can set it up later in pinecone
-print(len(chunked_document_embeddings))
 
 import hashlib
 
@@ -99,8 +86,6 @@ def combine_vector_and_text(
 
     return data_with_metadata
 
-# Call the function
-data_with_meta_data = combine_vector_and_text(documents=chunked_document, doc_embeddings=chunked_document_embeddings)
 
 from pinecone import Pinecone
 # Obtain your own pinecone key
@@ -120,8 +105,6 @@ def get_query_embeddings(query: str) -> list[float]:
     return query_embeddings
 
 # Call the function
-prompt = "What is Cupstacking?"
-query_embeddings = get_query_embeddings(query=prompt)
 
 def query_pinecone_index(
     query_embeddings: list, top_k: int = 2, include_metadata: bool = True
@@ -132,12 +115,10 @@ def query_pinecone_index(
     return query_response
 
 # Call the function
-answers = query_pinecone_index(query_embeddings=query_embeddings)
-print(answers)
 
 from openai import OpenAI
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
-def generate_answer(answers: dict[str, any]) -> str:
+def generate_answer(answers: dict[str, any], prompt) -> str:
   client = OpenAI(api_key=OPENAI_API_KEY)
   text_content = answers['matches'][0]['metadata']['text']
 
@@ -153,6 +134,4 @@ def generate_answer(answers: dict[str, any]) -> str:
       ]
   )
 
-  print(completion.choices[0].message)
-
-generate_answer(answers)
+  st.write(completion.choices[0].message)
