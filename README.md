@@ -13,8 +13,8 @@ Design and develop your own AI chatbot with Streamlit! This session will guide y
 
 ## Materials
 - [Slides](https://docs.google.com/presentation/d/1Ta5tx3lhM34YCGy6EgqgVGKcFGSgbY7m-gjOfcGWJ6I/edit?usp=sharing)
-- [YouTube Recording of Live Session PT 1](pending) pending
-- [YouTube Recording of Live Session PT 2](pending) pending
+- [YouTube Recording of Live Session PT 1](https://www.youtube.com/watch?v=SgWvSDTb5gk)
+- [YouTube Recording of Live Session PT 2](https://www.youtube.com/watch?v=_FPgY-Ib3Kc)
 
 <img width="753" alt="Screenshot 2025-01-10 at 1 51 58 PM" src="https://github.com/user-attachments/assets/d367bfae-54a6-4169-a026-0207f8692677" />
 
